@@ -1,6 +1,5 @@
 <template>
-  <div>Product List</div>
-  <div>
+  <div class="flex justify-center">
     <ProductPreview
       :key="product.id"
       v-for="product in products"

@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import { mount } from '@vue/test-utils';
+import { createRouter, createWebHistory } from 'vue-router';
 
 import ProductList from '@/components/ProductList';
 
@@ -21,9 +22,25 @@ describe('ProductList', () => {
     }
   };
 
+  const router = createRouter({
+    history: createWebHistory(),
+    routes: [
+      {
+        path: '/',
+        component: ProductList
+      },
+      {
+        path: '/product/:id',
+        component: {
+          template: '<div>A product</div>'
+        }
+      }
+    ]
+  });
+
   beforeEach(() => {
     store = createStore({ modules: { products: productsModule } });
-    wrapper = mount(ProductList, { global: { plugins: [store] } });
+    wrapper = mount(ProductList, { global: { plugins: [store, router] } });
   });
 
   it('loads products on mount', () => {
