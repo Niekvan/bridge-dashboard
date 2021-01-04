@@ -1,10 +1,17 @@
 <template>
-  <div>Product Preview</div>
+  <div data-test="product">{{ product.title }}</div>
 </template>
 
 <script>
 export default {
-  name: "ProductPreview"
+  name: 'ProductPreview',
+
+  props: {
+    product: {
+      required: true,
+      type: Object
+    }
+  }
 };
 </script>
 

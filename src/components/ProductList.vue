@@ -1,17 +1,21 @@
 <template>
   <div>Product List</div>
   <div>
-    <ProductPreview />
+    <ProductPreview
+      :key="product.id"
+      v-for="product in products"
+      :product="product"
+    />
   </div>
 </template>
 
 <script>
-import { useStore } from "vuex";
-import ProductPreview from "@/components/ProductPreview";
-import { onMounted } from "vue";
+import { useStore } from 'vuex';
+import ProductPreview from '@/components/ProductPreview';
+import { computed, onMounted } from 'vue';
 
 export default {
-  name: "ProductList",
+  name: 'ProductList',
   components: {
     ProductPreview
   },
@@ -19,11 +23,17 @@ export default {
   setup() {
     const store = useStore();
 
-    const loadProducts = () => store.dispatch("products/load");
+    const products = computed(() => store.state.products.records);
+
+    const loadProducts = () => store.dispatch('products/load');
 
     onMounted(() => {
       loadProducts();
     });
+
+    return {
+      products
+    };
   }
 };
 </script>
