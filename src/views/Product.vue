@@ -1,8 +1,6 @@
 <template>
   <Navigation>
-    <template v-slot:default>
-      Detail
-    </template>
+    <template v-slot:default>{{ product.title }}</template>
     <template v-slot:right>
       <router-link
         to="/"
@@ -18,18 +16,39 @@
       </router-link>
     </template>
   </Navigation>
-  <ProductDetail />
+  <ProductDetail v-if="product" :product="product" />
 </template>
 
 <script>
+import { useStore } from 'vuex';
+
 import Navigation from '@/components/Navigation';
 import ProductDetail from '@/components/ProductDetail';
+import { onBeforeMount, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default {
   name: 'Product',
   components: {
     Navigation,
     ProductDetail
+  },
+  setup() {
+    const store = useStore();
+    const route = useRoute();
+
+    const product = ref({});
+
+    const getProduct = () =>
+      store.dispatch('products/loadProduct', route.params.id);
+
+    onBeforeMount(async () => {
+      product.value = await getProduct();
+    });
+
+    return {
+      product
+    };
   }
 };
 </script>

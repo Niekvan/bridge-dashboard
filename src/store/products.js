@@ -11,6 +11,14 @@ const products = api => ({
       } catch (e) {
         console.log(e);
       }
+    },
+    loadProduct: async ({ state }, id) => {
+      const cached = state.records.find(item => item.id === Number(id));
+      if (cached) {
+        return cached;
+      }
+
+      return api.loadProduct(id);
     }
   },
   mutations: {

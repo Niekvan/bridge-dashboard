@@ -7,6 +7,7 @@
       <img class="h-full" src="../assets/img/bridge.png" alt="Bridge logo" />
     </router-link>
     <h1
+      data-test="page-title"
       class="justify-self-center row-start-1 row-span-1 col-start-1 col-span-1 text-2xl"
     >
       <slot />

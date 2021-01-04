@@ -2,19 +2,31 @@ import { createStore } from 'vuex';
 import products from '@/store/products';
 
 describe('products', () => {
-  it('stores the products', async () => {
-    const records = [
-      { id: 1, title: 'Lotion' },
-      { id: 2, title: 'Soap bar' },
-      { id: 3, title: 'Desinfectant' }
-    ];
+  let store;
 
-    const api = {
-      loadProducts: () => Promise.resolve(records)
-    };
+  const records = [
+    { id: 1, title: 'Lotion' },
+    { id: 2, title: 'Soap bar' },
+    { id: 3, title: 'Desinfectant' }
+  ];
 
-    const store = createStore({ modules: { products: products(api) } });
+  const api = {
+    loadProducts: () => Promise.resolve(records),
+    loadProduct: jest.fn(() => new Promise.resolve(false))
+  };
+
+  beforeEach(async () => {
+    store = createStore({ modules: { products: products(api) } });
     await store.dispatch('products/load');
+  });
+
+  it('stores the products', async () => {
     expect(store.state.products.records).toEqual(records);
+  });
+
+  it('uses the cached value from the store', async () => {
+    await store.dispatch('products/loadProduct', 1);
+
+    expect(api.loadProduct).not.toHaveBeenCalled();
   });
 });

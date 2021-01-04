@@ -6,6 +6,9 @@ const client = axios.create({
 const api = {
   loadProducts() {
     return client.get('/products?limit=3').then(res => res.data);
+  },
+  loadProduct(id) {
+    return client.get(`/products/${id}`).then(res => res.data);
   }
 };
 
