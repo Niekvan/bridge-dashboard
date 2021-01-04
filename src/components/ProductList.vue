@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-between">
     <ProductPreview
       :key="product.id"
       v-for="product in products"
