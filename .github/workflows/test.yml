@@ -16,6 +16,6 @@ jobs:
         with:
           flags: unittests
           files: ./coverage/clover.xml, ./coverage/coverage-final.json
-          name: cypress-tests
+          name: bridge
       - name: E2E tests
         run: yarn test:e2e --headless
