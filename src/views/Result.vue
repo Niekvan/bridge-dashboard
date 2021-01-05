@@ -1,40 +1,44 @@
 <template>
-  <Navigation>
-    <template v-slot:default>Results</template>
-    <template v-slot:right>
-      <router-link
-        to="/"
-        class="py-4 px-6 mr-2 border bg-white text-xl capitalize hover:bg-gray-100"
-      >
-        Start over
-      </router-link>
-    </template>
-  </Navigation>
-  <div class="my-24">
-    <h2 class="text-2xl">Results</h2>
-    <div class="mt-10 grid grid-rows-1 auto-cols-min gap-x-10 overflow-x-auto">
-      <ResultTile
-        :key="`result-${index}`"
-        v-for="(result, index) in results"
-        :data="result"
-        class="row-start-1"
-      />
-    </div>
-  </div>
   <div>
-    <h2 class="text-2xl">Other assets [files as pdf / pptx etc]</h2>
-    <div
-      class="mt-10 pb-5 grid grid-rows-1 auto-cols-min gap-x-10 overflow-x-auto"
-      data-scroll
-      style="scroll-behavior: smooth"
-      @wheel.passive="handleScroll"
-    >
-      <FileTile
-        :key="`file-${index}`"
-        v-for="(file, index) in files"
-        :data="file"
-        class="row-start-1"
-      />
+    <Navigation>
+      <template v-slot:default>Results</template>
+      <template v-slot:right>
+        <router-link
+          to="/"
+          class="py-4 px-6 mr-2 border bg-white text-xl capitalize hover:bg-gray-100"
+        >
+          Start over
+        </router-link>
+      </template>
+    </Navigation>
+    <div class="my-24">
+      <h2 class="text-2xl">Results</h2>
+      <div
+        class="mt-10 grid grid-rows-1 auto-cols-min gap-x-10 overflow-x-auto"
+      >
+        <ResultTile
+          :key="`result-${index}`"
+          v-for="(result, index) in results"
+          :data="result"
+          class="row-start-1"
+        />
+      </div>
+    </div>
+    <div>
+      <h2 class="text-2xl">Other assets [files as pdf / pptx etc]</h2>
+      <div
+        class="mt-10 pb-5 grid grid-rows-1 auto-cols-min gap-x-10 overflow-x-auto"
+        data-scroll
+        style="scroll-behavior: smooth"
+        @wheel.passive="handleScroll"
+      >
+        <FileTile
+          :key="`file-${index}`"
+          v-for="(file, index) in files"
+          :data="file"
+          class="row-start-1"
+        />
+      </div>
     </div>
   </div>
 </template>
