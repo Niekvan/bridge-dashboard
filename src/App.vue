@@ -10,20 +10,6 @@
 
 <script>
 export default {
-  name: 'App',
-
-  setup() {
-    const enter = e => {
-      console.log(e);
-    };
-    const leave = e => {
-      console.log(e);
-    };
-
-    return {
-      enter,
-      leave
-    };
-  }
+  name: 'App'
 };
 </script>
