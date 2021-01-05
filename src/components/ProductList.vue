@@ -1,10 +1,20 @@
 <template>
   <div class="flex justify-between">
-    <ProductPreview
-      :key="product.id"
-      v-for="product in products"
-      :product="product"
-    />
+    <template v-if="loadingProducts">
+      <ProductPreview
+        :key="product"
+        v-for="product in 3"
+        :product="{}"
+        :loading="true"
+      />
+    </template>
+    <template v-else>
+      <ProductPreview
+        :key="product.id"
+        v-for="product in products"
+        :product="product"
+      />
+    </template>
   </div>
 </template>
 
@@ -23,6 +33,7 @@ export default {
     const store = useStore();
 
     const products = computed(() => store.state.products.records);
+    const loadingProducts = computed(() => products.value.length === 0);
 
     const loadProducts = () => store.dispatch('products/load');
 
@@ -31,7 +42,8 @@ export default {
     });
 
     return {
-      products
+      products,
+      loadingProducts
     };
   }
 };

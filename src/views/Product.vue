@@ -1,22 +1,27 @@
 <template>
-  <Navigation>
-    <template v-slot:default>{{ product.title }}</template>
-    <template v-slot:right>
-      <router-link
-        to="/"
-        class="py-4 px-6 mr-2 border bg-white text-xl capitalize hover:bg-gray-100"
-      >
-        Go Back
-      </router-link>
-      <router-link
-        to="/result"
-        class="py-4 px-6 border bg-white text-xl capitalize hover:bg-gray-100"
-      >
-        Finish
-      </router-link>
-    </template>
-  </Navigation>
-  <ProductDetail v-if="product" :product="product" />
+  <div>
+    <Navigation>
+      <template v-if="product" v-slot:default>{{ product.title }}</template>
+      <template v-else v-slot:default
+        ><div class="w-40 h-4 bg-gray-300 animate-pulse"></div
+      ></template>
+      <template v-slot:right>
+        <router-link
+          to="/"
+          class="py-4 px-6 mr-2 border bg-white text-xl capitalize hover:bg-gray-100"
+        >
+          Go Back
+        </router-link>
+        <router-link
+          to="/result"
+          class="py-4 px-6 border bg-white text-xl capitalize hover:bg-gray-100"
+        >
+          Finish
+        </router-link>
+      </template>
+    </Navigation>
+    <ProductDetail :product="product" />
+  </div>
 </template>
 
 <script>
@@ -37,7 +42,7 @@ export default {
     const store = useStore();
     const route = useRoute();
 
-    const product = ref({});
+    const product = ref(null);
 
     const getProduct = () =>
       store.dispatch('products/loadProduct', route.params.id);
